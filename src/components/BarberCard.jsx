@@ -1,18 +1,29 @@
 // src/components/BarberCard.jsx
 export default function BarberCard({ barber }) {
   return (
-    <div className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition">
+    <div className="bg-purple-950 border border-purple-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-purple-700 transition-shadow duration-300">
       <img
         src={barber.photo}
         alt={barber.name}
-        className="w-full h-40 object-cover rounded-xl mb-3"
+        className="w-full h-48 object-cover"
       />
-      <h2 className="text-xl font-bold text-black">{barber.name}</h2>
-      <p className="text-gray-600">{barber.services.join(', ')}</p>
-      <p className="text-sm text-gray-400 mt-1">Ubicación: {barber.location}</p>
-      <button className="mt-4 bg-purple-600 text-white px-4 py-2 rounded-xl hover:bg-purple-700 w-full">
-        Reservar
-      </button>
+      <div className="p-5 space-y-3">
+        <h3 className="text-xl font-bold text-purple-100">{barber.name}</h3>
+        <p className="text-purple-400 text-sm">{barber.location}</p>
+        <ul className="flex flex-wrap gap-2 text-sm text-white">
+          {barber.services.map((service, idx) => (
+            <li
+              key={idx}
+              className="bg-purple-800/70 backdrop-blur-md px-3 py-1 rounded-full border border-purple-700"
+            >
+              {service}
+            </li>
+          ))}
+        </ul>
+        <button className="mt-3 w-full bg-purple-700 hover:bg-purple-600 text-white py-2 rounded-lg font-semibold transition-colors duration-300">
+          Ver Perfil
+        </button>
+      </div>
     </div>
   )
 }

@@ -6,25 +6,25 @@ const services = [
     name: 'Barberos',
     description: 'Cortes, afeitados y estilos clásicos y modernos.',
     image:
-      'https://images.unsplash.com/photo-1543168258-1cf53ecb20a3?auto=format&fit=crop&w=600&q=80',
+      'https://plus.unsplash.com/premium_photo-1677444546747-ac6ecbf08945?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YmFyYmVyb3N8ZW58MHx8MHx8fDA%3D',
   },
   {
     name: 'Peluqueros',
     description: 'Peinados, coloraciones y tratamientos capilares.',
     image:
-      'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80',
+      'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YmFyYmVyb3N8ZW58MHx8MHx8fDA%3D',
   },
   {
     name: 'Masajistas',
     description: 'Relajación, terapias y bienestar corporal.',
     image:
-      'https://images.unsplash.com/photo-1556228724-0f5ec5fa0380?auto=format&fit=crop&w=600&q=80',
+      'https://images.unsplash.com/photo-1591343395082-e120087004b4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1hc2FqaXN0YXN8ZW58MHx8MHx8fDA%3D',
   },
   {
     name: 'Tatuadores',
     description: 'Arte corporal con diseños personalizados.',
     image:
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80',
+      'https://images.unsplash.com/photo-1724343163782-52276ca2e6c2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGF0dWFkb3Jlc3xlbnwwfHwwfHx8MA%3D%3D',
   },
 ]
 
