@@ -126,7 +126,7 @@ export default function Navbar() {
                   className="absolute right-0 top-full mt-2 bg-black border border-gray-700 rounded-lg shadow-lg w-48 py-2"
                 >
                   {/* Ruta al perfil según tipo */}
-                  {user.type === 'profesional' ? (
+                  {user.role === 'profesional' ? (
                     <>
                       <Link
                         to="/profile/professional"

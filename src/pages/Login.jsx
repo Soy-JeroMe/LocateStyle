@@ -27,8 +27,14 @@ export default function Login() {
       })
       setTimeout(() => {
         setNotification(null)
-        navigate('/') // redirige a Home o donde quieras
-      }, 3000)
+
+        // 🔁 Redirigir según el rol
+        if (user.role === 'profesional') {
+          navigate('/')
+        } else {
+          navigate('/')
+        }
+      }, 2000)
     } else {
       setError('Correo o contraseña incorrectos')
     }
