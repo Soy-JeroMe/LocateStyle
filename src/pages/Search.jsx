@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import BarberCard from '../components/BarberCard'
+import Logo from '../img/LLS3-Photoroom.png'
 
 const fakeProfessionals = [
   {
@@ -103,9 +104,18 @@ export default function Search() {
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-6 py-20">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-purple-300 mb-12 text-center">
-          Encuentra Profesionales Cerca de Ti
-        </h1>
+        <div className="flex items-center space-x-6 mb-12">
+          <img src={Logo} alt="Logo" className="w-28 h-28 object-contain" />
+
+          <div className="flex flex-col">
+            <h1 className="text-3xl md:text-5xl font-extrabold text-purple-300">
+              Encuentra Profesionales Cerca de Ti
+            </h1>
+            <p className="text-xl  mt-2">
+              Localiza Tu Estilo, En Cualquier Lugar, En Cualquier Momento
+            </p>
+          </div>
+        </div>
 
         {/* Filtros y Búsqueda */}
         <section className="flex flex-col md:flex-row items-stretch gap-4 mb-16">

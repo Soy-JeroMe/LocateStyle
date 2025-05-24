@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar'
 import { Link } from 'react-router-dom'
+import Logo from '../img/logo.png'
 
 const services = [
   {
@@ -35,6 +36,11 @@ export default function Home() {
 
       {/* Hero */}
       <section className="max-w-7xl mx-auto px-6 py-24 flex flex-col-reverse lg:flex-row items-center gap-16">
+        {/* <img
+          src={Logo}
+          alt="Logo"
+          className="w-48 md:w-64 lg:w-72 mx-auto lg:mx-0"
+        /> */}
         <div className="lg:w-1/2 space-y-8">
           <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-white drop-shadow-xl">
             Encuentra al profesional ideal <br /> cerca de ti

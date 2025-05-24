@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Menu, X, ChevronDown, User } from 'lucide-react'
+import TextLogo from '../img/BlancoLS.png'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -49,16 +50,17 @@ export default function Navbar() {
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         <Link
           to="/"
-          className="text-2xl font-bold text-purple-500 tracking-wide"
+          className="flex items-center space-x-2"
           onClick={() => {
             setIsOpen(false)
             setProfileOpen(false)
             setServicesOpen(false)
           }}
         >
-          LocateStyle
+          <img className="w-[100px] h-auto" src={TextLogo} alt="" />
         </Link>
 
+        {/* <img className="w-[100px] h-auto m-auto" src={Logo} alt="Logo" /> */}
         {/* Desktop menu */}
         <div className="hidden md:flex space-x-6 items-center">
           <Link
