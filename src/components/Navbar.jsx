@@ -56,7 +56,7 @@ export default function Navbar() {
             setServicesOpen(false)
           }}
         >
-          StylistApp
+          LocateStyle
         </Link>
 
         {/* Desktop menu */}
@@ -295,7 +295,7 @@ export default function Navbar() {
                 className="bg-purple-600 text-white px-4 py-2 rounded-xl hover:bg-purple-700 w-full text-center"
                 onClick={toggleMenu}
               >
-                Soy Profesional
+                Registrate
               </Link>
             </>
           ) : (

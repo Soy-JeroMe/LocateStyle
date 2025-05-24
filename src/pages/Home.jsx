@@ -165,7 +165,7 @@ export default function Home() {
       </section>
 
       {/* Call to action */}
-      <section className="bg-gradient-to-r from-purple-800 to-purple-950 py-20 text-center text-white">
+      <section className="bg-gradient-to-b from-purple-900 via-purple-950 to-black py-20 text-center text-white">
         <h2 className="text-4xl font-extrabold mb-4">¿Eres profesional?</h2>
         <p className="text-purple-300 mb-10 max-w-xl mx-auto">
           Regístrate en la plataforma, crea tu perfil y empieza a recibir
