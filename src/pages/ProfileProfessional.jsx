@@ -17,7 +17,7 @@ export default function ProfileProfessional() {
     description: '',
   })
   const [isEditing, setIsEditing] = useState(false)
-  const [showToast, setShowToast] = useState(false)
+  const [showNotification, setShowNotification] = useState(false)
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('loggedInUser'))
@@ -44,10 +44,13 @@ export default function ProfileProfessional() {
     localStorage.setItem('loggedInUser', JSON.stringify(updatedUser))
     setUser(updatedUser)
     setIsEditing(false)
+    setShowNotification(true)
+    window.dispatchEvent(new Event('storage')) // Actualiza Navbar
 
-    // Mostrar notificación
-    setShowToast(true)
-    setTimeout(() => setShowToast(false), 3000)
+    setTimeout(() => {
+      setShowNotification(false)
+      window.location.reload() // 🔄 Recarga la página
+    }, 1500)
   }
 
   const handleCancel = () => {
@@ -72,21 +75,18 @@ export default function ProfileProfessional() {
   return (
     <>
       <Navbar />
-
-      {/* Toast de confirmación */}
-      {showToast && (
-        <div className="fixed top-5 right-5 bg-purple-600 text-white px-6 py-3 rounded-xl shadow-lg transition-all z-50 animate-fade-in-down">
-          ✅ Perfil actualizado correctamente
-        </div>
-      )}
-
       <div className="min-h-screen bg-white text-black font-sans px-6 py-16">
-        <div className="max-w-4xl mx-auto bg-neutral-100 rounded-3xl border border-neutral-300 shadow-xl p-10">
+        <div className="max-w-4xl mx-auto bg-neutral-100 rounded-3xl border border-neutral-300 shadow-xl p-10 relative">
+          {showNotification && (
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 mt-[-2.5rem] bg-green-100 border border-green-300 text-green-800 px-6 py-3 rounded-xl shadow-md transition">
+              ✅ Perfil actualizado correctamente.
+            </div>
+          )}
+
           <h1 className="text-4xl font-bold text-purple-700 mb-10 text-center">
             Tu Perfil Profesional
           </h1>
 
-          {/* Info principal */}
           <section className="flex flex-col md:flex-row gap-8 items-start">
             <div className="w-full md:w-1/3 flex justify-center">
               <div className="w-40 h-40 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 text-5xl font-bold shadow-inner border-4 border-purple-200">
@@ -102,7 +102,11 @@ export default function ProfileProfessional() {
                   value={form.name}
                   onChange={(e) => handleChange('name', e.target.value)}
                   disabled={!isEditing}
-                  className="w-full bg-white border-b-2 border-purple-300 focus:outline-none focus:border-purple-600 text-gray-800 transition px-2 py-1 rounded"
+                  className={`w-full bg-white border-b-2 ${
+                    isEditing
+                      ? 'border-purple-300 focus:outline-none focus:border-purple-600'
+                      : 'border-transparent text-gray-700'
+                  } transition px-2 py-1 rounded`}
                   placeholder="Tu nombre completo"
                 />
               </div>
@@ -119,7 +123,11 @@ export default function ProfileProfessional() {
                   value={form.phone}
                   onChange={(e) => handleChange('phone', e.target.value)}
                   disabled={!isEditing}
-                  className="w-full bg-white border-b-2 border-purple-300 focus:outline-none focus:border-purple-600 text-gray-800 transition px-2 py-1 rounded"
+                  className={`w-full bg-white border-b-2 ${
+                    isEditing
+                      ? 'border-purple-300 focus:outline-none focus:border-purple-600'
+                      : 'border-transparent text-gray-700'
+                  } transition px-2 py-1 rounded`}
                   placeholder="Tu número de contacto"
                 />
               </div>
@@ -131,14 +139,17 @@ export default function ProfileProfessional() {
                   value={form.location}
                   onChange={(e) => handleChange('location', e.target.value)}
                   disabled={!isEditing}
-                  className="w-full bg-white border-b-2 border-purple-300 focus:outline-none focus:border-purple-600 text-gray-800 transition px-2 py-1 rounded"
+                  className={`w-full bg-white border-b-2 ${
+                    isEditing
+                      ? 'border-purple-300 focus:outline-none focus:border-purple-600'
+                      : 'border-transparent text-gray-700'
+                  } transition px-2 py-1 rounded`}
                   placeholder="Ubicación"
                 />
               </div>
             </div>
           </section>
 
-          {/* Descripción */}
           <section className="mt-10">
             <label className="block text-purple-700 font-semibold mb-2 text-lg">
               Descripción de tu servicio
@@ -148,12 +159,15 @@ export default function ProfileProfessional() {
               onChange={(e) => handleChange('description', e.target.value)}
               disabled={!isEditing}
               rows="5"
-              className="w-full bg-white border border-purple-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-purple-600 text-gray-800"
+              className={`w-full rounded-xl p-4 transition ${
+                isEditing
+                  ? 'bg-white border border-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-600 text-gray-800'
+                  : 'bg-transparent text-gray-700 border-transparent'
+              }`}
               placeholder="Describe brevemente tu experiencia, servicios ofrecidos o lo que te hace único..."
             />
           </section>
 
-          {/* Botones */}
           <div className="mt-10 text-center space-x-4">
             {isEditing ? (
               <>

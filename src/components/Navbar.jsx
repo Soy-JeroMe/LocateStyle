@@ -9,9 +9,29 @@ export default function Navbar() {
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
 
-  useEffect(() => {
+  const fetchUser = () => {
     const loggedUser = JSON.parse(localStorage.getItem('loggedInUser'))
     setUser(loggedUser)
+  }
+
+  useEffect(() => {
+    fetchUser()
+
+    const handleStorage = (e) => {
+      if (e.key === 'loggedInUser') {
+        fetchUser()
+      }
+    }
+
+    const handleUserUpdate = () => fetchUser()
+
+    window.addEventListener('storage', handleStorage)
+    window.addEventListener('user-updated', handleUserUpdate)
+
+    return () => {
+      window.removeEventListener('storage', handleStorage)
+      window.removeEventListener('user-updated', handleUserUpdate)
+    }
   }, [])
 
   const toggleMenu = () => setIsOpen(!isOpen)
@@ -36,7 +56,7 @@ export default function Navbar() {
             setServicesOpen(false)
           }}
         >
-          BarberConnect
+          StylistApp
         </Link>
 
         {/* Desktop menu */}
@@ -106,7 +126,7 @@ export default function Navbar() {
                 to="/register"
                 className="bg-purple-600 text-white px-4 py-2 rounded-xl hover:bg-purple-700 transition"
               >
-                Soy Profesional
+                Registrate
               </Link>
             </>
           ) : (
@@ -125,7 +145,6 @@ export default function Navbar() {
                   onMouseLeave={() => setProfileOpen(false)}
                   className="absolute right-0 top-full mt-2 bg-black border border-gray-700 rounded-lg shadow-lg w-48 py-2"
                 >
-                  {/* Ruta al perfil según tipo */}
                   {user.role === 'profesional' ? (
                     <>
                       <Link
@@ -183,7 +202,7 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Mobile toggle button */}
+        {/* Botón hamburguesa para móvil */}
         <button
           className="md:hidden"
           onClick={toggleMenu}
@@ -197,7 +216,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Menú móvil */}
       {isOpen && (
         <div className="mt-4 space-y-4 md:hidden flex flex-col items-start max-w-7xl mx-auto">
           <Link
@@ -291,7 +310,7 @@ export default function Navbar() {
               </button>
               {profileOpen && (
                 <div className="mt-2 flex flex-col space-y-2 pl-4 bg-black border border-gray-700 rounded-lg py-2 w-full">
-                  {user.type === 'profesional' ? (
+                  {user.role === 'profesional' ? (
                     <>
                       <Link
                         to="/profile/professional"
