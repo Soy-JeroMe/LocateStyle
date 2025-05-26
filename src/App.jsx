@@ -10,6 +10,9 @@ import ProfileProfessional from './pages/ProfileProfessional'
 import Appointments from './pages/Appointments'
 import Bookings from './pages/Bookings'
 import Settings from './pages/Settings'
+import Courses from './pages/Courses'
+import UploadCourse from './pages/UploadCourse'
+import CourseDetails from './pages/CourseDetails'
 
 function App() {
   return (
@@ -25,6 +28,17 @@ function App() {
         <Route path="/appointments" element={<Appointments />} />
         <Route path="/bookings" element={<Bookings />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/subir-curso" element={<UploadCourse />} />
+        <Route path="/courseDetails" element={<CourseDetails />} />
+
+        {/* Ruta para manejar 404 Not Found
+        <Route
+          path="*"
+          element={
+            <div className="text-center mt-10">Página no encontrada</div>
+          }
+        /> */}
       </Routes>
     </Router>
   )
