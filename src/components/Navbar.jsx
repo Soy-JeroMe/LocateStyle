@@ -69,6 +69,12 @@ export default function Navbar() {
           >
             Buscar Profesionales
           </Link>
+          <Link
+            to="/courses"
+            className="hover:text-purple-400 transition-colors"
+          >
+            Cursos
+          </Link>
 
           <div className="relative">
             <button
@@ -227,6 +233,13 @@ export default function Navbar() {
             onClick={toggleMenu}
           >
             Buscar Profesionales
+          </Link>
+          <Link
+            to="/courses"
+            className="text-white hover:text-purple-400 w-full"
+            onClick={toggleMenu}
+          >
+            Cursos
           </Link>
 
           <div>
