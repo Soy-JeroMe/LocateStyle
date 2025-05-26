@@ -1,99 +1,96 @@
-import { FaPlayCircle, FaUserGraduate } from 'react-icons/fa'
+import { useEffect, useState } from 'react'
+import { FaPlayCircle, FaPlus } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
-import { Link } from 'react-router-dom'
-
-const courses = [
-  {
-    id: 1,
-    title: 'Curso de Corte Moderno',
-    instructor: 'Luis Martínez',
-    image: 'https://source.unsplash.com/400x250/?barber,haircut',
-    description:
-      'Aprende las técnicas más populares de corte moderno en este curso completo de 4 semanas.',
-  },
-  {
-    id: 2,
-    title: 'Barbería Clásica Avanzada',
-    instructor: 'Ana Torres',
-    image: 'https://source.unsplash.com/400x250/?barbershop,classic',
-    description:
-      'Domina el arte del afeitado y corte clásico con técnicas tradicionales y herramientas vintage.',
-  },
-  {
-    id: 3,
-    title: 'Diseños Capilares Creativos',
-    instructor: 'Carlos Ruiz',
-    image: 'https://source.unsplash.com/400x250/?hairdesign',
-    description:
-      'Explora el diseño capilar como arte, desde patrones básicos hasta creaciones avanzadas.',
-  },
-]
 
 export default function Courses() {
+  const [courses, setCourses] = useState([])
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const storedCourses = JSON.parse(localStorage.getItem('courses') || '[]')
+    setCourses(storedCourses)
+  }, [])
+
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-neutral-100 text-neutral-900 font-sans px-6 py-16">
+
+      {/* Sección de introducción */}
+      <div className="bg-purple-800 py-20 px-6 border-b border-gray-200">
+        <div className="max-w-5xl mx-auto text-center">
+          <h1 className="text-5xl font-bold text-white mb-6">
+            Explora y Comparte Conocimiento
+          </h1>
+          <p className="text-lg text-black font-bold leading-relaxed">
+            Esta plataforma permite a usuarios subir y descubrir cursos creados
+            por otros miembros de la comunidad. Comparte tu experiencia, aprende
+            nuevas habilidades o encuentra ese curso que estabas buscando. ¡Todo
+            en un solo lugar!
+          </p>
+        </div>
+      </div>
+
+      {/* Sección de cursos */}
+      <div className="min-h-screen bg-neutral-100 px-6 py-20 font-sans relative">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-12 text-center">
-            <h1 className="text-5xl font-extrabold mb-4">Cursos de Barbería</h1>
-            <p className="text-lg text-neutral-600">
-              Explora o comparte cursos sobre técnicas, estilos y herramientas
-              del mundo barberil.
-            </p>
+          <div className="flex justify-between items-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-800">
+              🎓 Cursos Disponibles
+            </h2>
           </div>
 
-          {/* Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            {courses.map((course) => (
-              <div
-                key={course.id}
-                className="rounded-3xl overflow-hidden shadow-lg bg-white hover:shadow-2xl transition border border-neutral-200 group"
-              >
-                <div className="h-48 w-full overflow-hidden">
-                  <img
-                    src={course.image}
-                    alt={course.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                  />
-                </div>
+          {courses.length === 0 ? (
+            <p className="text-center text-gray-500 text-lg">
+              Aún no hay cursos disponibles. Sé el primero en subir uno.
+            </p>
+          ) : (
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              {courses.map((course) => (
+                <div
+                  key={course.id}
+                  className="relative bg-white/90 backdrop-blur-md border border-gray-200 rounded-3xl shadow-lg overflow-hidden group transition-transform hover:-translate-y-1"
+                >
+                  <div className="h-40 bg-gradient-to-tr from-purple-400 via-pink-300 to-indigo-400 group-hover:blur-[1px] transition" />
 
-                <div className="p-6 flex flex-col justify-between h-[260px]">
-                  <div>
-                    <h2 className="text-xl font-bold text-neutral-800 mb-2">
+                  <div className="p-6">
+                    <h2 className="text-xl font-bold text-gray-800 mb-2 truncate">
                       {course.title}
                     </h2>
-                    <p className="text-sm text-neutral-600 mb-4 line-clamp-3">
+                    <p className="text-gray-600 text-sm leading-relaxed mb-3 line-clamp-3">
                       {course.description}
                     </p>
-                    <div className="flex items-center gap-2 text-sm text-purple-700 font-medium">
-                      <FaUserGraduate />
-                      {course.instructor}
+
+                    <div className="flex justify-between items-center">
+                      <span className="inline-block bg-purple-100 text-purple-800 text-xs font-medium px-3 py-1 rounded-full">
+                        {course.category}
+                      </span>
+
+                      <a
+                        href={course.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-purple-700 hover:text-purple-900 font-semibold text-sm transition"
+                      >
+                        <FaPlayCircle className="text-lg" />
+                        Ver Curso
+                      </a>
                     </div>
                   </div>
-
-                  <button className="mt-5 w-full bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-full flex items-center justify-center gap-2 transition">
-                    <FaPlayCircle />
-                    Ver Curso
-                  </button>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Sección para subir curso (placeholder) */}
-          <div className="mt-20 text-center">
-            <p className="text-neutral-600 mb-4">
-              ¿Tienes conocimientos que compartir?
-            </p>
-            <Link
-              to="/subir-curso"
-              className="mt-4 px-6 py-3 bg-neutral-900 text-white rounded-full hover:bg-neutral-800 transition font-semibold shadow"
-            >
-              Subir un nuevo curso
-            </Link>
-          </div>
+              ))}
+            </div>
+          )}
         </div>
+
+        {/* Botón flotante para subir curso */}
+        <button
+          onClick={() => navigate('/subir-curso')}
+          className="fixed bottom-10 right-10 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-lg flex items-center gap-2 transition z-50"
+        >
+          <FaPlus />
+          Subir Curso
+        </button>
       </div>
     </>
   )

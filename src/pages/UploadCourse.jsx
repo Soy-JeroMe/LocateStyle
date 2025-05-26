@@ -1,5 +1,7 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { FaUpload, FaFileAlt, FaTag, FaLink } from 'react-icons/fa'
+import Navbar from '../components/Navbar'
 
 export default function UploadCourse() {
   const [course, setCourse] = useState({
@@ -9,104 +11,98 @@ export default function UploadCourse() {
     link: '',
   })
 
+  const navigate = useNavigate()
+
   const handleChange = (e) => {
     setCourse({ ...course, [e.target.name]: e.target.value })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Curso enviado:', course)
-    // Aquí iría tu lógica para subirlo
+
+    // Obtener cursos previos
+    const existing = JSON.parse(localStorage.getItem('courses') || '[]')
+
+    // Crear nuevo con id
+    const newCourse = {
+      ...course,
+      id: Date.now(),
+    }
+
+    // Guardar en localStorage
+    localStorage.setItem('courses', JSON.stringify([newCourse, ...existing]))
+
+    // Redirigir al listado
+    navigate('/courses')
   }
 
   return (
-    <div className="min-h-screen bg-neutral-100 text-gray-900 px-6 py-16">
-      <div className="max-w-3xl mx-auto bg-white shadow-2xl rounded-3xl p-10">
-        <h1 className="text-3xl font-extrabold text-center mb-8 text-gray-800">
-          <FaUpload className="inline mr-2 text-purple-600" />
-          Subir nuevo curso
-        </h1>
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-neutral-100 text-gray-900 px-6 py-16">
+        <div className="max-w-3xl mx-auto bg-white shadow-2xl rounded-3xl p-10">
+          <h1 className="text-3xl font-extrabold text-center mb-8 text-gray-800">
+            <FaUpload className="inline mr-2 text-purple-600" />
+            Subir nuevo curso
+          </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Título */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              <FaFileAlt className="inline mr-2 text-purple-600" />
-              Título del curso
-            </label>
-            <input
-              type="text"
-              name="title"
-              value={course.title}
-              onChange={handleChange}
-              required
-              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-purple-500 focus:outline-none transition"
-              placeholder="Ej: Fundamentos de barbería"
-            />
-          </div>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Campos (idénticos a antes) */}
+            <div>
+              <label className="block mb-1 font-medium">Título</label>
+              <input
+                name="title"
+                value={course.title}
+                onChange={handleChange}
+                required
+                className="w-full border rounded-xl px-4 py-3"
+              />
+            </div>
 
-          {/* Descripción */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              <FaFileAlt className="inline mr-2 text-purple-600" />
-              Descripción
-            </label>
-            <textarea
-              name="description"
-              value={course.description}
-              onChange={handleChange}
-              required
-              rows={4}
-              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-purple-500 focus:outline-none transition resize-none"
-              placeholder="Una breve descripción del curso..."
-            />
-          </div>
+            <div>
+              <label className="block mb-1 font-medium">Descripción</label>
+              <textarea
+                name="description"
+                value={course.description}
+                onChange={handleChange}
+                rows={4}
+                required
+                className="w-full border rounded-xl px-4 py-3 resize-none"
+              />
+            </div>
 
-          {/* Categoría */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              <FaTag className="inline mr-2 text-purple-600" />
-              Categoría
-            </label>
-            <input
-              type="text"
-              name="category"
-              value={course.category}
-              onChange={handleChange}
-              required
-              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-purple-500 focus:outline-none transition"
-              placeholder="Ej: Estilo, Técnica, Productos..."
-            />
-          </div>
+            <div>
+              <label className="block mb-1 font-medium">Categoría</label>
+              <input
+                name="category"
+                value={course.category}
+                onChange={handleChange}
+                required
+                className="w-full border rounded-xl px-4 py-3"
+              />
+            </div>
 
-          {/* Enlace del curso */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              <FaLink className="inline mr-2 text-purple-600" />
-              Enlace al curso
-            </label>
-            <input
-              type="url"
-              name="link"
-              value={course.link}
-              onChange={handleChange}
-              required
-              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-purple-500 focus:outline-none transition"
-              placeholder="https://tucurso.com"
-            />
-          </div>
+            <div>
+              <label className="block mb-1 font-medium">Enlace</label>
+              <input
+                name="link"
+                type="url"
+                value={course.link}
+                onChange={handleChange}
+                required
+                className="w-full border rounded-xl px-4 py-3"
+              />
+            </div>
 
-          {/* Botón */}
-          <div className="text-center pt-4">
             <button
               type="submit"
-              className="bg-purple-700 hover:bg-purple-800 text-white font-semibold px-8 py-3 rounded-full transition shadow-md hover:shadow-xl"
+              className="mt-4 w-full bg-purple-700 hover:bg-purple-800 text-white font-bold py-3 px-6 rounded-full shadow-md transition"
             >
               Publicar Curso
             </button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
