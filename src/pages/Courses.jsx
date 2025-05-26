@@ -17,7 +17,7 @@ export default function Courses() {
       <Navbar />
 
       {/* Sección de introducción */}
-      <div className="bg-purple-800 py-20 px-6 border-b border-gray-200">
+      <div className="bg-purple-700 py-20 px-6 border-b border-gray-200">
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-5xl font-bold text-white mb-6">
             Explora y Comparte Conocimiento
@@ -51,8 +51,18 @@ export default function Courses() {
                   key={course.id}
                   className="relative bg-white/90 backdrop-blur-md border border-gray-200 rounded-3xl shadow-lg overflow-hidden group transition-transform hover:-translate-y-1"
                 >
-                  <div className="h-40 bg-gradient-to-tr from-purple-400 via-pink-300 to-indigo-400 group-hover:blur-[1px] transition" />
+                  {/* Imagen o fondo de portada */}
+                  {course.image ? (
+                    <img
+                      src={course.image}
+                      alt="Portada del curso"
+                      className="w-full h-40 object-cover transition group-hover:blur-[1px]"
+                    />
+                  ) : (
+                    <div className="h-40 bg-gradient-to-tr from-purple-400 via-pink-300 to-indigo-400 group-hover:blur-[1px] transition" />
+                  )}
 
+                  {/* Contenido del curso */}
                   <div className="p-6">
                     <h2 className="text-xl font-bold text-gray-800 mb-2 truncate">
                       {course.title}
